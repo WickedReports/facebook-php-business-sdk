@@ -56,6 +56,7 @@ class MediaTitleFields extends AbstractEnum {
   const TITLE_DISPLAY_NAME = 'title_display_name';
   const UNIT_PRICE = 'unit_price';
   const URL = 'url';
+  const VISIBILITY = 'visibility';
   const WIKI_DATA_ITEM = 'wiki_data_item';
 
   public function getFieldTypes() {
@@ -69,7 +70,7 @@ class MediaTitleFields extends AbstractEnum {
       'fb_page_id' => 'Page',
       'genres' => 'list<string>',
       'id' => 'string',
-      'image_fetch_status' => 'MediaTitle_image_fetch_status',
+      'image_fetch_status' => 'ImageFetchStatus',
       'images' => 'list<string>',
       'kg_fb_id' => 'string',
       'media_title_id' => 'string',
@@ -79,6 +80,7 @@ class MediaTitleFields extends AbstractEnum {
       'title_display_name' => 'string',
       'unit_price' => 'Object',
       'url' => 'string',
+      'visibility' => 'Visibility',
       'wiki_data_item' => 'string',
     );
   }

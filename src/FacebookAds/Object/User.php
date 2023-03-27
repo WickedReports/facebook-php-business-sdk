@@ -125,6 +125,7 @@ class User extends AbstractCrudObject {
 
     $param_types = array(
       'business_app' => 'int',
+      'is_permanent_token' => 'bool',
       'page_id' => 'string',
       'scope' => 'list<Permission>',
     );
@@ -436,6 +437,7 @@ class User extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'pages' => 'list<unsigned int>',
     );
     $enums = array(
     );
@@ -471,6 +473,29 @@ class User extends AbstractCrudObject {
       new ProductCatalog(),
       'EDGE',
       ProductCatalog::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getAvatars(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/avatars',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -1135,7 +1160,6 @@ class User extends AbstractCrudObject {
       'is_audio_only' => 'bool',
       'is_spherical' => 'bool',
       'original_fov' => 'unsigned int',
-      'planned_start_time' => 'int',
       'privacy' => 'string',
       'projection' => 'projection_enum',
       'published' => 'bool',
@@ -1163,6 +1187,29 @@ class User extends AbstractCrudObject {
       new LiveVideo(),
       'EDGE',
       LiveVideo::getFieldsEnum()->getValues(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function createMessengerDesktopPerformanceTrace(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
+      '/messenger_desktop_performance_traces',
+      new User(),
+      'EDGE',
+      User::getFieldsEnum()->getValues(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);
@@ -1198,11 +1245,16 @@ class User extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'bot_message_payload_elements' => 'string',
       'filtering' => 'list<filtering_enum>',
       'href' => 'Object',
+      'label' => 'string',
+      'message' => 'map',
       'notif_ids' => 'list<string>',
+      'payload' => 'string',
       'read' => 'bool',
       'ref' => 'string',
+      'schedule_interval' => 'unsigned int',
       'seen' => 'bool',
       'template' => 'Object',
       'type' => 'type_enum',
@@ -1447,53 +1499,6 @@ class User extends AbstractCrudObject {
       new ProfilePictureSource(),
       'EDGE',
       ProfilePictureSource::getFieldsEnum()->getValues(),
-      new TypeChecker($param_types, $enums)
-    );
-    $request->addParams($params);
-    $request->addFields($fields);
-    return $pending ? $request : $request->execute();
-  }
-
-  public function getPioneerData(array $fields = array(), array $params = array(), $pending = false) {
-    $this->assureId();
-
-    $param_types = array(
-    );
-    $enums = array(
-    );
-
-    $request = new ApiRequest(
-      $this->api,
-      $this->data['id'],
-      RequestInterface::METHOD_GET,
-      '/pioneer_data',
-      new AbstractCrudObject(),
-      'EDGE',
-      array(),
-      new TypeChecker($param_types, $enums)
-    );
-    $request->addParams($params);
-    $request->addFields($fields);
-    return $pending ? $request : $request->execute();
-  }
-
-  public function createPioneerDatum(array $fields = array(), array $params = array(), $pending = false) {
-    $this->assureId();
-
-    $param_types = array(
-      'json_data' => 'string',
-    );
-    $enums = array(
-    );
-
-    $request = new ApiRequest(
-      $this->api,
-      $this->data['id'],
-      RequestInterface::METHOD_POST,
-      '/pioneer_data',
-      new AbstractCrudObject(),
-      'EDGE',
-      array(),
       new TypeChecker($param_types, $enums)
     );
     $request->addParams($params);

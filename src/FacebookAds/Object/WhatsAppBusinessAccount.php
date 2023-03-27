@@ -132,10 +132,34 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getAudiences(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/audiences',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getConversationAnalytics(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
     $param_types = array(
+      'conversation_categories' => 'list<conversation_categories_enum>',
       'conversation_directions' => 'list<conversation_directions_enum>',
       'conversation_types' => 'list<conversation_types_enum>',
       'country_codes' => 'list<string>',
@@ -147,6 +171,13 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
       'start' => 'unsigned int',
     );
     $enums = array(
+      'conversation_categories_enum' => array(
+        'AUTHENTICATION',
+        'MARKETING',
+        'SERVICE',
+        'UNKNOWN',
+        'UTILITY',
+      ),
       'conversation_directions_enum' => array(
         'BUSINESS_INITIATED',
         'UNKNOWN',
@@ -159,6 +190,7 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
         'UNKNOWN',
       ),
       'dimensions_enum' => array(
+        'CONVERSATION_CATEGORY',
         'CONVERSATION_DIRECTION',
         'CONVERSATION_TYPE',
         'COUNTRY',
@@ -182,6 +214,29 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
       $this->data['id'],
       RequestInterface::METHOD_GET,
       '/conversation_analytics',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function getExtensions(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/extensions',
       new AbstractCrudObject(),
       'EDGE',
       array(),
@@ -241,7 +296,8 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
         'DELETED',
         'DISABLED',
         'IN_APPEAL',
-        'LOCKED',
+        'LIMIT_EXCEEDED',
+        'PAUSED',
         'PENDING',
         'PENDING_DELETION',
         'REJECTED',
@@ -411,6 +467,29 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function getSchedules(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_GET,
+      '/schedules',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function deleteSubscribedApps(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -461,6 +540,8 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'override_callback_uri' => 'string',
+      'verify_token' => 'string',
     );
     $enums = array(
     );

@@ -287,55 +287,6 @@ class Group extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
-  public function getFeaturedCards(array $fields = array(), array $params = array(), $pending = false) {
-    $this->assureId();
-
-    $param_types = array(
-    );
-    $enums = array(
-    );
-
-    $request = new ApiRequest(
-      $this->api,
-      $this->data['id'],
-      RequestInterface::METHOD_GET,
-      '/featured_cards',
-      new AbstractCrudObject(),
-      'EDGE',
-      array(),
-      new TypeChecker($param_types, $enums)
-    );
-    $request->addParams($params);
-    $request->addFields($fields);
-    return $pending ? $request : $request->execute();
-  }
-
-  public function createFeaturedCard(array $fields = array(), array $params = array(), $pending = false) {
-    $this->assureId();
-
-    $param_types = array(
-      'body' => 'map',
-      'description' => 'map',
-      'title' => 'map',
-    );
-    $enums = array(
-    );
-
-    $request = new ApiRequest(
-      $this->api,
-      $this->data['id'],
-      RequestInterface::METHOD_POST,
-      '/featured_cards',
-      new AbstractCrudObject(),
-      'EDGE',
-      array(),
-      new TypeChecker($param_types, $enums)
-    );
-    $request->addParams($params);
-    $request->addFields($fields);
-    return $pending ? $request : $request->execute();
-  }
-
   public function getFeed(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -631,7 +582,6 @@ class Group extends AbstractCrudObject {
       'is_audio_only' => 'bool',
       'is_spherical' => 'bool',
       'original_fov' => 'unsigned int',
-      'planned_start_time' => 'int',
       'privacy' => 'string',
       'projection' => 'projection_enum',
       'published' => 'bool',
